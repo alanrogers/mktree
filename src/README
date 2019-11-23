@@ -1,0 +1,55 @@
+mktree: Generate a tree using the coalescent, and describe the result
+with PicTex. 
+ 
+1. Type "make depend" to generate the dependencies file.
+
+2. Type "make" to compile the program.
+
+3. Edit the file pophist.ini to make it reflect the history of the
+hypothetical population in which you are interested.  The pophist.ini file
+has a row for each epoch of the population's history.  There can
+be as many rows (corresponding to as many epochs) as you want.  Within each
+epoch, all parameters are constant.  Within each row, there are four
+columns:
+  column 1: the variable theta = 2*N*u, where N is haploid population
+            size and u is the mutation rate per generation.
+            In other words, theta measures population size in units
+            of 1/(2*u) individuals.
+  column 2: mn = m*n, where \"m\" is the immigration rate and \"n\" is\n\
+            the haploid size of each subdivision. This parameter equals\n\
+            the number of immigrants per generation into each population.\n\
+  column 3: The length of the epoch in units of 1/(2*u) generations.
+  column 4: The number of sub-populations, all of equal size.
+The input routine ignores comments, which begin with '%' and end with
+end-of-line.
+
+4. To generate a tree with 20 tips, type:
+
+  ./mktree 20 > figxxx.tex
+
+On unix, this puts the output into a file called figxxx.tex.  If you
+are working on windows, open an MSDOS session, get into the relevant
+directory, and type
+
+  mktree 20 > figxxx.tex
+
+which does the same thing.  
+
+To do anything useful with this output, you must have a working version of 
+LaTeX, including support for PicTeX.  Assuming that you do, the next step is:
+
+5. Type
+
+  latex mkfig
+
+to process the file mkfig.tex, which in turn imports the file figxxx.tex,
+which you just created.  The result is a file called mkfig.dvi.  You can view this file using, for example, the program xdvi, or convert it into postscript
+using the program dvips.
+
+Under unix/linux, try this:
+
+  ./mktree 30 ; latex mkfig; xdvi mkfig
+
+A figure should appear on your screen.  Then hit the up-arrow followed by
+return  The result is a file called mkfig.dvi.  You can view this file using, for example, the program xdvi, or convert it into postscript
+using the program dvips.
